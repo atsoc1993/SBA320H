@@ -2,7 +2,7 @@ body, html {
   margin: 0;
 }
 
-ul li {
+.sidebar-links ul li {
   list-style: none;
 }
 
