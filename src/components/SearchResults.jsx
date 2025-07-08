@@ -5,15 +5,23 @@ export default function SearchResultsContainer({ data }) {
     const [debtHistory, setDebtHistory] = useState({})
     async function getCompanyDebtHistory({ cik }) {
         let response = await axios.get(`http://localhost:3000/getEarningsByCIK/${cik}`)
-        let data = response.data.units.USD
+        let data = response.data
 
-        let formattedData = data.map((debtLog) => {
-            return [debtLog.end, debtLog.val]
-        })
+        let formattedData;
+
+        if (data === 'No Data Available') {
+            formattedData = data
+        } else {
+            formattedData = data.units.USD.map((debtLog) => {
+                return [debtLog.end, debtLog.val]
+            })
+        }
+
         let CompanyObject = {
             history: formattedData,
             show: true
         }
+
         setDebtHistory((previousDebtHistory) => ({ ...previousDebtHistory, [cik]: CompanyObject }))
         console.log(debtHistory)
 
@@ -34,15 +42,20 @@ export default function SearchResultsContainer({ data }) {
                             return ({ ...previousData, [company.cik]: newCompanyData })
                         })}>
                             {debtHistory[company.cik].show ? 'Minimize' : 'Expand'} </button>
-                        {debtHistory[company.cik].show ? debtHistory[company.cik].history.map((debtItem, i) => {
-                            return (
-                                <div style={{ display: 'flex', flexDirection: 'row' }} key={debtItem[0] + i}>
-                                    <p><strong>End:</strong> {debtItem[0]}</p>
-                                    <p style={{ marginLeft: '5px' }}><strong>Val:</strong> ${debtItem[1].toLocaleString()}</p>
-                                </div>
+                        {debtHistory[company.cik].show && debtHistory[company.cik].history !== 'No Data Available' ? (
+                            <div style={{display: 'flex', flexDirection: 'column', marginTop: '5px'}}>
+                            <strong>Outstanding Debt | Date Reported </strong>
+                            {debtHistory[company.cik].history.map((debtItem, i) => {
+                                return (
+                                    <div style={{ display: 'flex', flexDirection: 'row' }} key={debtItem[0] + i}>
+                                        <p>${debtItem[1].toLocaleString()}</p>
+                                        <p style={{ marginLeft: '30px' }}>{debtItem[0]}</p>
+                                    </div>
 
-                            )
-                        }) : null}
+                                )
+                            })}
+                        </div>
+                        ) : debtHistory[company.cik].history === 'No Data Available' ? <p>No data Available</p> : null}
 
                     </>
                     : null
