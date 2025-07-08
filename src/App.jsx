@@ -1,7 +1,7 @@
 import { Route, Routes, Link } from 'react-router-dom'
-import Home from './Home';
-import WeatherPage from './WeatherPage';
-import Page2 from './Page2';
+import Home from './components/Home';
+import WeatherPage from './components/WeatherPage';
+import Page2 from './components/Page2';
 
 
 function App() {
