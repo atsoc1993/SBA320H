@@ -1,11 +1,22 @@
 import express from 'express'
 import cors from 'cors'
 import axios from 'axios'
+import 'dotenv/config'
 
 let app = express();
 const PORT = 3000
 app.use(cors());
 
+
+app.get('/search/:text', async (req, res) => {
+    console.log("Called")
+    console.log(`Text: ${req.params.text}`)
+    let response = await axios.get(`https://financialmodelingprep.com/api/v3/cik-search/${req.params.text}?apikey=${process.env.API_KEY}`)
+    let data = response.data
+    console.log(data)
+    res.json(data)
+    
+})
 app.get('/getEarningsByCIK/:cik', async (req, res) => {
         let cik = req.params.cik
         try {
