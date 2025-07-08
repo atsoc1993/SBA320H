@@ -65,7 +65,7 @@ export default function SearchResultsContainer({ data }) {
         </div >
     ))
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px', padding: '30px', margin: '20px'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1)', borderRadius: '10px', padding: '30px', margin: '20px'}}>
             {companies}
         </div>
     )
