@@ -8,15 +8,13 @@ const PORT = 3000
 app.use(cors());
 
 
-app.get('/search/:text', async (req, res) => {
-    console.log("Called")
-    console.log(`Text: ${req.params.text}`)
+app.get('/cikSearch/:text', async (req, res) => {
     let response = await axios.get(`https://financialmodelingprep.com/api/v3/cik-search/${req.params.text}?apikey=${process.env.API_KEY}`)
     let data = response.data
-    console.log(data)
-    res.json(data)
-    
+    return res.json(data)
 })
+
+
 app.get('/getEarningsByCIK/:cik', async (req, res) => {
         let cik = req.params.cik
         try {
@@ -29,10 +27,35 @@ app.get('/getEarningsByCIK/:cik', async (req, res) => {
                 }
             )
             let data = response.data
-            res.send(data)
+            if (data.length === 0) {
+                return res.send('No Data Available')
+            }
+            return res.send(data)
         } catch {
-            res.send('No Data Available')
+            return res.send('No Data Available')
         }
+})
+
+app.get('/nameSearch/:text', async (req, res) => {
+    let text = req.params.text
+    let response = await axios.get(`https://financialmodelingprep.com/stable/search-name?query=${text}&apikey=${process.env.API_KEY}`)
+    let data = response.data
+    return res.send(data)
+})
+app.get('/getDividends/:ticker', async (req, res) => {
+    try {
+
+        let ticker = req.params.ticker
+        let response = await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${ticker}?apikey=${process.env.API_KEY}`)
+        let data = response.data['historical']
+        if (data.length === 0) {
+            return res.send('No Data Available')
+        }
+        return res.send(data)
+    } catch {
+        return res.send('No Data Available')
+
+    }
 })
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
