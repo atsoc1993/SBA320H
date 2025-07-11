@@ -1,5 +1,5 @@
 # Visit Website
-https://super-torrone-9c2e5f.netlify.app/debt
+https://super-torrone-9c2e5f.netlify.app/
 
 # U.S. Securities and Exchange Commission Outstanding Debt Reports & Stock Dividend Data Application
 
