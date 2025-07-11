@@ -16,7 +16,7 @@ export default function Sidebar() {
         </ul>
         <ul>
           <li>
-          <Link to='/page-2'>Dividend Information</Link>
+          <Link to='/dividends'>Dividend Information</Link>
           </li>
         </ul>
       </div>
