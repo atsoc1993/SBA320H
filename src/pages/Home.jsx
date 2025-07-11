@@ -2,7 +2,7 @@
 function Home() {
 
     return (
-        <div style={{ display: 'flex', flex: '1', justifyContent: 'center', textAlign: 'center', marginTop: '100px' }}>
+        <div style={{ display: 'flex', flex: '1', justifyContent: 'center', textAlign: 'center', marginTop: '100px', marginLeft: '240px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1)', borderRadius: '10px', padding: '30px', maxWidth: '1000px' }}>
                 <h1>Home</h1>
                 <h3>What is the purpose of this website?</h3>
